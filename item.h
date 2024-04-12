@@ -14,6 +14,7 @@ class Item
     void print() const {std::cout << "\nItem Name: " << name << "\nItem Description: " << description << "\nItem Level: " << level << std::endl;  }
     int getMaxStack() const {return stackSize;}
     int getID() const {return itemID;}
+    std::string getName() const {return name;}
     // defualt constructor makes a null Item
     Item() : name(""), description(""), level(NULL_LEVEL), itemID(NULL_ITEMID), stackSize(0) {}
 
