@@ -36,7 +36,7 @@ class Menu
     std::string optionChars;
     std::vector<std::string> optionDescriptions;
     char gameState;
-    const char exitState = 'e';     // mostly for debugging atm
+    const char exitState = 'e';     // exit sentinel
     const char errorState = '`';    // sentinel cause ill never use this in menus
     const char menuState = 'm';     // this will be reserved for the menu
     const std::string invalidInputMsg = "\nInvalid text received, try again.\n";
