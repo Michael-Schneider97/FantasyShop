@@ -12,7 +12,12 @@ class Item
     std::string getName() {return name;}
     int getLevel() {return level;}
     void print() {std::cout << "\nItem Name: " << name << "\nItem Description: " << description << "\nItem Level: " << level << std::endl;  }
-    
+    int getMaxStack() {return stackSize;}
+    int getID() const {return itemID;}
+    // defualt constructor makes a null Item
+    Item() : name(""), description(""), level(NULL_LEVEL), itemID(NULL_ITEMID), stackSize(0) {}
+
+
     // cast item to bool to test empty
     explicit operator bool() { if(name == "" && description == "" && level == NULL_LEVEL) {return false;} return true; }
 
