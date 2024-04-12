@@ -12,12 +12,21 @@ class Item
     std::string getName() {return name;}
     int getLevel() {return level;}
     void print() {std::cout << "\nItem Name: " << name << "\nItem Description: " << description << "\nItem Level: " << level << std::endl;  }
+    
+    // cast item to bool to test empty
+    explicit operator bool() { if(name == "" && description == "" && level == NULL_LEVEL) {return false;} return true; }
+
 
     protected:
     const std::string name;
     const std::string description;
     // item type
     const int level;
+    const int itemID;
+    const int NULL_ITEMID = -1;
+    const int stackSize;
+    const int NULL_LEVEL = -1;
+
 };
 
 #endif
