@@ -12,24 +12,33 @@ class Slot
     int currentStackSize;
     const int minQuantity = 1;
     const int maxQuantity;
-    const Item *item;
+    
 
     public:
     const int NULL_STACK_SIZE = -1;
-    
+    const Item *item;
+
+    int getQuantity() const {return currentStackSize;}
+
     Slot(Item itemIn, int numIn) : item(new Item(itemIn)), currentStackSize(numIn), maxQuantity(itemIn.getMaxStack()) { assert(currentStackSize >= minQuantity); }
-    void remove()
+    bool remove(const Item itemIn, const int quantity = 1)
     {
+        if(!item)
+        {
+            return false;
+        }
+        
         currentStackSize-= 1;
-        if(currentStackSize <= minQuantity)
+        if(currentStackSize < minQuantity)
         {
             Item *nullItem = new Item();
             item = nullItem;
             currentStackSize = NULL_STACK_SIZE;
+            return true;
         }
     }
 
-    bool add(const Item itemIn)
+    bool add(const Item itemIn, const int quantity = 1)
     {
         if(currentStackSize + 1 <= maxQuantity && itemIn.getID() == item->getID())
         {
