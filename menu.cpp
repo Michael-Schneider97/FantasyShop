@@ -45,7 +45,11 @@ char Menu::retrieveMenuState()
     std::string input;
     std::cin >> input;
 
-
+    if (input.size() > 1)
+    {
+        return menuState;
+    }
+    
 
     for(int i = 0; i < optionChars.size(); i++)
     {
