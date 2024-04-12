@@ -11,6 +11,8 @@ protected:
     std::deque<Slot> inventory;
     const std::string name;
     const int size;
+    
+    int getLocationOf(const Item itemIn);
 
 
 public:
@@ -20,6 +22,7 @@ public:
     bool passItem
     void addItem(Item item);
     Item removeItem();
+    
 };
 
 #endif

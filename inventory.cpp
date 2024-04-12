@@ -30,6 +30,48 @@ void Inventory::display()
 Inventory::Inventory(std::string nameIn, const int size)
 : name(nameIn), size(sizeIn) {}
 
+
+// util func for checking if an item is in the inventory somewhere
+// returns the first element to contain the item in a slot with space for more
+// THE QUANTITY ARGUMENT WILL BE MODIFIED IF THE CONTAINER HAS
+// FEWER/MORE THAN THE SPECIFIED AMOUNT
+int getLocationOf(const Item itemIn, int *quantity = NULL)
+{
+
+	//todo: add checking for if we have x amount of this item in the slot
+	// return early if that quantity < stacksize and that the itemIn is valid
+	std::deque<int> listOfPositions;
+	std::deque<int> listOfQuantities;
+	int position = -1;
+
+	if(!quantity)
+	{
+		quantity = new int(1);
+	}
+	
+	for(int i = 0; i < inventory.size(); i++)
+	{
+		if(itemIn.getID() ==inventory[i].item->getID())
+		{
+			listOfPositions.push_back(i);
+			listOfQuantities.push_back(inventory[i].item->getID();
+		}
+	}
+	
+	for(int i = 0; i < listOfQuantities.size(); i++)
+	{
+		if(listOfQuantities[i] < inventory[listOfPositions[i]].item->getStackSize())
+		{
+			quantity = listOfQuantities[i];
+			position = listOfPositions[i];
+		}
+	}
+	
+	return position;
+}
+
+
+
 // todo implement adding items from the void, sending them them there, and the passItem function
 // automatic slot selection, checking if inventory is full
 
