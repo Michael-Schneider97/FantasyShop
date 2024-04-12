@@ -27,12 +27,15 @@ void Inventory::display()
     std::cout << std::endl;
 }
 
+Inventory::Inventory(std::string nameIn, const int size)
+: name(nameIn), size(sizeIn) {}
+
 // todo implement adding items from the void, sending them them there, and the passItem function
 // automatic slot selection, checking if inventory is full
 
 
-
-bool Inventory::addItem(Item item)
+// add an item that is not currently in an inventory
+bool Inventory::addItem(const Item &item)
 {
 
 }
