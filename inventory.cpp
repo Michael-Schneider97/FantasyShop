@@ -30,7 +30,53 @@ void Inventory::display()
 Inventory::Inventory(std::string nameIn, const int size)
 : name(nameIn), size(sizeIn) {}
 
+// get the nth slot with the matching item
+int Inventory::getIndex(const Item itemIn, const int slotId = 1)
+{
+	int slotIteration = 1;
 
+	for(int i = 0; i < inventory.size(); i++)
+	{
+		if(inventory[i].item->getID() == itemIn.getID())
+		{
+			if(slotIteration == slotId)
+			{
+				return i;
+			}
+			
+			else
+			{
+				slotIteration++;
+			}
+		}
+	}
+	
+	return NOT_FOUND;
+}
+
+// get total count of some item
+int Inventory::getCount(const Item itemIn)
+{
+	int currentIndex = 0;
+	int count = 0;
+	
+	currentIndex = getIndex(itemIn);
+	
+	while(currentIndex!= NOT_FOUND)
+	{
+		count+= inventory[currentIndex].getQuantity();
+		currentIndex = getIndex(itemIn);
+	}
+	
+	return count;
+}
+
+
+
+
+// TODO SPLIT INTO TWO FUNCTIONS
+// FIRST FINDS IF WE HAVE X AMOUNT OF Y ITEM
+// SECOND FINDS IF WE HAVE SLOT WITH Y ITEM AND SPACE FOR X AMOUNT
 // util func for checking if an item is in the inventory somewhere
 // returns the first element to contain the item in a slot with space for more
 // THE QUANTITY ARGUMENT WILL BE MODIFIED IF THE CONTAINER HAS
@@ -68,6 +114,28 @@ int getLocationOf(const Item itemIn, int *quantity = NULL)
 	}
 	
 	return position;
+}
+
+// returns the current open slots
+int Inventory::getFreeSlots() const
+{
+	return size - inventory.size();
+}
+
+// consolidates the inventory into fewest possible slots
+void Inventory::consolidate()
+{
+update();
+
+// go slot by slot, skipping full ones
+for(int i = 0; i < inventory.size(); i++)
+{
+	if(inventory[i].isFull())
+	{
+		continue;
+	}
+}
+
 }
 
 

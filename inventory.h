@@ -11,6 +11,7 @@ protected:
     std::deque<Slot> inventory;
     const std::string name;
     const int size;
+    const int NOT_FOUND = -1;
     
     int getLocationOf(const Item itemIn);
 
