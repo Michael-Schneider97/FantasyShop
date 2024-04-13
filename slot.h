@@ -9,19 +9,23 @@
 
 class Slot
 {
+	// data
     int currentStackSize;
     const int minQuantity = 1;
     const int maxQuantity;
     
-
     public:
     const int NULL_STACK_SIZE = -1;
     const Item *item;
 
+	// getter for how full the slot is
     int getQuantity() const {return currentStackSize;}
-
+	
+	// constructor
     Slot(Item itemIn, int numIn) : item(new Item(itemIn)), currentStackSize(numIn), maxQuantity(itemIn.getMaxStack()) { assert(currentStackSize >= minQuantity); }
-    bool remove(const Item itemIn, const int quantity = 1)
+    
+    // remove item
+    ￼bool remove(const Item itemIn, const int quantity = 1)
     {
         if(!item)
         {
@@ -38,6 +42,7 @@ class Slot
         }
     }
 
+    // add item
     bool add(const Item itemIn, const int quantity = 1)
     {
         if(currentStackSize + 1 <= maxQuantity && itemIn.getID() == item->getID())
@@ -47,6 +52,12 @@ class Slot
         }
 
         return false;
+    }
+    
+    // returns true if the slot is full of its item
+    bool isFull() const
+    {
+	    return currentStackSize == maxQuantity;
     }
 };
 
