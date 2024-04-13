@@ -27,6 +27,7 @@ void Inventory::display()
     std::cout << std::endl;
 }
 
+// constructor
 Inventory::Inventory(std::string nameIn, const int size)
 : name(nameIn), size(sizeIn) {}
 
@@ -123,19 +124,19 @@ int Inventory::getFreeSlots() const
 }
 
 // consolidates the inventory into fewest possible slots
+// TODO complete this function
 void Inventory::consolidate()
 {
-update();
+	update();
 
-// go slot by slot, skipping full ones
-for(int i = 0; i < inventory.size(); i++)
-{
-	if(inventory[i].isFull())
+	// go slot by slot, skipping full ones
+	for(int i = 0; i < inventory.size(); i++)
 	{
-		continue;
+		if(inventory[i].isFull())
+		{
+			continue;
+		}
 	}
-}
-
 }
 
 
@@ -145,25 +146,53 @@ for(int i = 0; i < inventory.size(); i++)
 
 
 // add an item that is not currently in an inventory
-bool Inventory::addItem(const Item &item)
+bool Inventory::addItem(const Item &item, const int quantity = 1)
 {
-
+	// do we have space?
 }
 
-bool Inventory::removeItem()
+// remove an item to the void
+// it is the responsibility of the one calling this function to 
+// make sure the inventory has the item and the quantity
+bool Inventory::removeItem(const Item itemIn, const int quantity = 1)
 {
-
+	int quantityToDelete = quantity;
+	if(getCount(itemIn) < quantity || getIndex(itemIn) == NOT_FOUND)
+	{
+		return false;
+	}
+	
+	while(quantityToDelete > 0)
+	{
+		int currentIndex = getIndex(itemIn, 1);
+		if(inventory[currentIndex].getQuantity() < quantityToDelete)
+		{
+			// NOTE: If we update to stack sizing being dependent
+			// on the container this will introduce a logic bug
+			// and well need to pull our second variable in this
+			// call from the inventory itself, not itemIn
+			inventory[currentIndex].removeItem(itemIn, itemIn.getStackSize());
+			quantityToDelete-=itemIn.getStackSize();
+		}
+		else
+		{
+			inventory[currentIndex.removeItem(itemIn, quantityToDelete);
+		}
+	}
+	
+	return true;
 }
 
 // attempt to pass item from inventory a to b
 // failure causes nothing to happen and prints an error message to console
+// rewrite this
 void Inventory::passItem(Inventory destination, const Item itemToPass, Const int quantity = 1)
 {
     const Slot slot = removeItem(itemToPass, quantity);
 
-    if(!item)
+    if(!item) // ISSUE: where is this even declared?
     {
-         // item does not exist in the inventory
+        // item does not exist in the inventory
         // print error message
         return;
     }
@@ -175,7 +204,7 @@ void Inventory::passItem(Inventory destination, const Item itemToPass, Const int
     // print error
     addItem(item, quantity);
     return;
-}
+	}
 
 // successful passage of item
 return;
