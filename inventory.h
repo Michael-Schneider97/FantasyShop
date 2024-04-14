@@ -18,10 +18,11 @@ protected:
 
 public:
     Inventory(std::string nameIn, const int sizeIn);
+    int getCount(const Item itemIn);
     void display();
     void update();
     bool passItem
-    void addItem(Item item);
+    bool addItem(Item item);
     Item removeItem();
     
 };

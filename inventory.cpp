@@ -1,6 +1,7 @@
 #include "inventory.h"
 
 // removes empty slots
+// call this befoe/after modifying any slot
 void Inventory::update()
 {
     for(auto i = inventory.begin(); i != inventory.end(); i++)
@@ -12,6 +13,7 @@ void Inventory::update()
     }
 }
 
+// prints inventory to screen
 void Inventory::display()
 {
     update();
@@ -107,7 +109,7 @@ int getLocationOf(const Item itemIn, int *quantity = NULL)
 	
 	for(int i = 0; i < listOfQuantities.size(); i++)
 	{
-		if(listOfQuantities[i] < inventory[listOfPositions[i]].item->getStackSize())
+		if(listOfQuantities[i] < inventory[listOfPositions[i]].item->getMaxStack())
 		{
 			quantity = listOfQuantities[i];
 			position = listOfPositions[i];
@@ -120,7 +122,7 @@ int getLocationOf(const Item itemIn, int *quantity = NULL)
 // returns the current open slots
 int Inventory::getFreeSlots() const
 {
-	return size - inventory.size();
+	return inventory.size() - size;
 }
 
 // consolidates the inventory into fewest possible slots
@@ -141,14 +143,69 @@ void Inventory::consolidate()
 
 
 
-// todo implement adding items from the void, sending them them there, and the passItem function
+// todo implement adding items from the void, and the passItem function
 // automatic slot selection, checking if inventory is full
 
 
 // add an item that is not currently in an inventory
-bool Inventory::addItem(const Item &item, const int quantity = 1)
+bool Inventory::addItem(const Item itemIn, const int quantity = 1)
 {
+
+	int quantityToAdd = quantity;
 	// do we have space?
+	int spaces = 0;
+	spaces += (getFreeSlots() * itemIn.getMaxStack());
+	
+	// now add all the space in slots which are not full
+	const int totalSlots = getSlotsWith(itemIn);
+	for(int i = 0; i < totalSlots; i++)
+	{
+		spaces += (inventory[getIndex(itemIn, i+1)].getMaxStack() - inventory[getIndex(itemIn, i+1)].getQuantity());
+	}
+	
+	// not enough space in this inventory
+	if(spaces < quantity)
+	{
+		return false;
+	}
+	
+	// this is where we might do a level check, should we 
+	// implement levels within the inventory class
+	
+	// we fill any slots of this item with empty space remaining
+	for(int i = 0; i < totalSlots; i++)
+	{
+		// code smell
+		int spaceThisSlot = (inventory[getIndex(itemIn, i+1)].getMaxStack() - inventory[getIndex(itemIn, i+1)].getQuantity());
+		
+		if(spaceThisSlot == 0)
+		{
+			continue;
+		}
+		
+		else if(spaceThisSlot < quantityToAdd)
+		{
+			if(inventory[getIndex(itemIn, i+1)].addItem(itemIn, spaceThisSlot))
+			{
+				quantityToAdd-=spaceThisSlot;
+				continue;
+			}
+		}
+		else
+		{
+			if(inventory[getIndex(itemIn, i+1)].addItem(itemIn, quantityToAdd))
+			{
+				return true;
+			}
+		}
+	}
+	
+	// we have run out of slots which already contain the item, so now we make new ones
+	while(quantityToAdd > itemIn.
+	
+	Slot newSlot(itemIn);
+	
+	
 }
 
 // remove an item to the void
@@ -171,8 +228,8 @@ bool Inventory::removeItem(const Item itemIn, const int quantity = 1)
 			// on the container this will introduce a logic bug
 			// and well need to pull our second variable in this
 			// call from the inventory itself, not itemIn
-			inventory[currentIndex].removeItem(itemIn, itemIn.getStackSize());
-			quantityToDelete-=itemIn.getStackSize();
+			inventory[currentIndex].removeItem(itemIn, itemIn.getMaxStack());
+			quantityToDelete-=itemIn.getMaxStack();
 		}
 		else
 		{
