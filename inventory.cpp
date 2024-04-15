@@ -17,8 +17,6 @@ void Inventory::update()
 void Inventory::display()
 {
     update();
-
-    // prints out each item
     std::cout << name << std::endl << std::endl;
     
     for(int i = 0; i < inventory.size(); i++)
@@ -34,6 +32,7 @@ Inventory::Inventory(std::string nameIn, const int size)
 : name(nameIn), size(sizeIn) {}
 
 // get the nth slot with the matching item
+// should probably have zero indexed this 
 int Inventory::getIndex(const Item itemIn, const int slotId = 1)
 {
 	int slotIteration = 1;
@@ -122,6 +121,7 @@ int getLocationOf(const Item itemIn, int *quantity = NULL)
 // returns the current open slots
 int Inventory::getFreeSlots() const
 {
+	update();
 	return inventory.size() - size;
 }
 
@@ -201,11 +201,16 @@ bool Inventory::addItem(const Item itemIn, const int quantity = 1)
 	}
 	
 	// we have run out of slots which already contain the item, so now we make new ones
-	while(quantityToAdd > itemIn.
+	Slot newSlot(itemIn, itemIn.getMaxStack());
 	
-	Slot newSlot(itemIn);
+	while(quantityToAdd > itemIn.getMaxStack())
+	{
+		inventory.push_back(newSlot);
+		quantityToAdd-=itemIn.getMaxStack();
+	}
 	
-	
+	Slot newNewSlot(itemIn,quantityToAdd);
+	return true;
 }
 
 // remove an item to the void
