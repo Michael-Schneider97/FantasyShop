@@ -1,7 +1,11 @@
 #include "inventory.h"
 
-// removes empty slots
-// call this befoe/after modifying any slot
+/* Function which removes dead slots
+ * Call this function before calling
+ * any non-const function, or any 
+ * function which modifies or reads
+ * slots in the inventory data structure. 
+ */
 void Inventory::update()
 {
     for(auto i = inventory.begin(); i != inventory.end(); i++)
@@ -13,7 +17,12 @@ void Inventory::update()
     }
 }
 
-// prints inventory to screen
+/* Function which print the inventory
+ * on the screen. 
+ * We might refactor this to return a
+ * string to be printed by a separate
+ * stream object. 
+ */
 void Inventory::display()
 {
     update();
@@ -73,9 +82,7 @@ int Inventory::getCount(const Item itemIn)
 	return count;
 }
 
-
-
-
+// might delete this method
 // TODO SPLIT INTO TWO FUNCTIONS
 // FIRST FINDS IF WE HAVE X AMOUNT OF Y ITEM
 // SECOND FINDS IF WE HAVE SLOT WITH Y ITEM AND SPACE FOR X AMOUNT
@@ -246,28 +253,21 @@ bool Inventory::removeItem(const Item itemIn, const int quantity = 1)
 }
 
 // attempt to pass item from inventory a to b
-// failure causes nothing to happen and prints an error message to console
-// rewrite this
+// possibly will refactor this to return bool
 void Inventory::passItem(Inventory destination, const Item itemToPass, Const int quantity = 1)
 {
-    const Slot slot = removeItem(itemToPass, quantity);
-
-    if(!item) // ISSUE: where is this even declared?
+    if(!removeItem(itemToPass, quantity))
     {
-        // item does not exist in the inventory
-        // print error message
-        return;
+	    return;
     }
-
+    
     if(!destination.addItem(item, quantity))
     {
-    // cannot add item either due to lack of space or 
-    // the container is not allowed to contain it 
-    // print error
-    addItem(item, quantity);
-    return;
-	}
+	    // undo removal
+	    addItem(item, quantity);
+	    return;
+    }
 
-// successful passage of item
-return;
+	// successful passage of item
+	return;
 }
