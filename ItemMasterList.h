@@ -18,6 +18,7 @@ class ItemMasterList
 	// loads the items into the data structure from the file
 	void load()
 	{
+		int itemID = 0;
 		std::string temp[ATTRIBUTES];
 		std::string temp;
 		std::fstream FILE(filename, ios_base::in);
@@ -37,12 +38,15 @@ class ItemMasterList
 			// TODO MAKE CONSTRUCTOR FOR THIS IN ITEM CLASS
 			try
 			{
-				Item itemIn(temp[0], temp[1], temp[2], temp[3];
+				Item itemIn(temp[0], temp[1], temp[2], itemID++, temp[3]);
 			}
 			catch() // add the appropriate exception
 			{
 				// handle the error
 			}
+			
+			// if no errors occur, you can put itemId into the [] operator to get your item
+			itemMasterList.push_back(itemIn);
 			
 			std::getline(FILE, temp[0];
 		}
@@ -50,6 +54,8 @@ class ItemMasterList
 		return;
 	}
 	
+	// we will only define this if we later decide to 
+	// add master list editor otherwise its unneeded. 
 	void save();
 	
 };
