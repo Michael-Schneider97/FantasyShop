@@ -9,7 +9,6 @@ class Item
     Item(std::string nameIn, std::string descriptionIn, int levelIn, int itemIDIn, int stackSizeIn) : 
     name(nameIn), description(descriptionIn), level(levelIn), itemID(itemIDIn), stackSize(stackSizeIn) {} // todo: update to include item type
     std::string getDescription() {return description;}
-    std::string getName() {return name;}
     int getLevel() const {return level;}
     void print() const {std::cout << "\nItem Name: " << name << "\nItem Description: " << description << "\nItem Level: " << level << std::endl;  }
     int getMaxStack() const {return stackSize;}
