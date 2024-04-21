@@ -8,6 +8,8 @@
 #ifndef character_h
 #define character_h
 
+#include "inventory.h"
+
 class Character
 {
 	protected:

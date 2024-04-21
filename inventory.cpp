@@ -148,12 +148,6 @@ void Inventory::consolidate()
 	}
 }
 
-
-
-// todo implement adding items from the void, and the passItem function
-// automatic slot selection, checking if inventory is full
-
-
 // add an item that is not currently in an inventory
 bool Inventory::addItem(const Item itemIn, const int quantity = 1)
 {
