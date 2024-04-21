@@ -2,12 +2,14 @@
 #define item_h
 #include <string>
 #include <iostream>
+#include "charClass.h"
 
 class Item
 {
     public:
-    Item(std::string nameIn, std::string descriptionIn, int levelIn, int itemIDIn, int stackSizeIn) : 
-    name(nameIn), description(descriptionIn), level(levelIn), itemID(itemIDIn), stackSize(stackSizeIn) {} // todo: update to include item type
+    // regular constructor
+    Item(std::string nameIn, std::string descriptionIn, int levelIn, int itemIDIn, int stackSizeIn, rpgClass itemClassIn) : 
+    name(nameIn), description(descriptionIn), level(levelIn), itemID(itemIDIn), stackSize(stackSizeIn), itemClass(itemClassIn) {} // todo: update to include item type
     std::string getDescription() {return description;}
     int getLevel() const {return level;}
     void print() const {std::cout << "\nItem Name: " << name << "\nItem Description: " << description << "\nItem Level: " << level << std::endl;  }
@@ -31,6 +33,7 @@ class Item
     const int NULL_ITEMID = -1;
     const int stackSize;
     const int NULL_LEVEL = -1;
+    rpgClass itemClass;
 
 };
 

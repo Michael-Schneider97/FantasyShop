@@ -8,13 +8,7 @@
  #ifndef charClass_h
  #define charClass_h
  
- 
- // we may change this to a class and hold a vector 
- // loaded from a file but for now this is sufficient 
- struct charClass
- {
-	 const std::string name, description;
-	 const int ID;
- };
- 
+ // I really dont like the variable name here but cant think of anything better. 
+ enum class rpgClass {MagicCaster, Knight, Summoner, Swordsman, Shopkeep};
+
  #endif

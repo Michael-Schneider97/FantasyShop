@@ -12,7 +12,7 @@ class ItemMasterList
 	std::deque<Item> itemMasterList;
 	const std::string filename;
 	const char DELIN = ',';
-	const int ATTRIBUTES = 4;
+	const int ATTRIBUTES = 5;
 	const MAX_LEN = 10000;
 	
 	// loads the items into the data structure from the file
@@ -38,7 +38,8 @@ class ItemMasterList
 			// TODO MAKE CONSTRUCTOR FOR THIS IN ITEM CLASS
 			try
 			{
-				Item itemIn(temp[0], temp[1], temp[2], itemID++, temp[3]);
+				// NOTE: when updating attributes, change this lime
+				Item itemIn(temp[0], temp[1], temp[2], itemID++, temp[3], temp[4]);
 			}
 			catch() // add the appropriate exception
 			{

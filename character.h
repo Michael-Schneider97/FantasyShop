@@ -9,6 +9,7 @@
 #define character_h
 
 #include "inventory.h"
+#include "rpgClass"
 
 class Character
 {
@@ -19,8 +20,9 @@ class Character
 	std::string name;
 	// Gender gender;
 	int age;
-	// CharClass charClass;
+	rpgClass charClass;
 	
+	public:
 	void increaseLevel(unsigned int amount) {level += amount;}
 	
 	// returns a reference to the inventory to allow access of public inventory functions
@@ -31,10 +33,12 @@ class Character
 	// constructor
 	Character(Inventory inventoryIn, int levelIn, std:string nameIn, int ageIn) : 
 		inventory(inventoryIn, level(levelIn), name(nameIn), age(ageIn) {}
-		
+	
+	// some standard getters
 	int getLevel() const {return level;}
 	std::string getName() const {return name;}
 	int getAge() const {return age;}
+	rpgClass getClass() const {return charClass;}
 };
 
 #endif
