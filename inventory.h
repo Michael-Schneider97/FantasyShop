@@ -4,6 +4,7 @@
 #include "item.h"
 #include "slot.h"
 #include <deque>
+#include <string>
 
 class Inventory
 {
@@ -34,7 +35,7 @@ public:
 // see below
 
 {
-	 const char SUCESS = 's',
+	 const char SUCCESS = 's',
 				NO_SLOTS_AVAIL = 'f',
 				SLOT_FULL = 'l',
 				 

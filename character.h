@@ -9,7 +9,8 @@
 #define character_h
 
 #include "inventory.h"
-#include "rpgClass"
+#include "rpgClass.h"
+#include <string>
 
 class Character
 {

@@ -6,6 +6,8 @@
  #include "menu.h"
  #include "inventory.h"
  #include "slot.h"
+ #include <string>
+ #include <vector>
  
  // debug major systems here
  void debug()

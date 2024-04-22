@@ -2,7 +2,7 @@
 #define item_h
 #include <string>
 #include <iostream>
-#include "charClass.h"
+#include "rpgClass.h"
 
 class Item
 {
