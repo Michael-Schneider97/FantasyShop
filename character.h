@@ -41,6 +41,12 @@ class Character
 	int getAge() const {return age;}
 	rpgClass getClass() const {return charClass;}
 	Gender getGender const {return gender;}
+	
+	// updater
+	void update()
+	{
+		inventory.update();
+	}
 };
 
 #endif
