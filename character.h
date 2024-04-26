@@ -19,7 +19,7 @@ class Character
 	int level;
 	const int minLevel = 1;
 	std::string name;
-	// Gender gender;
+	Gender gender;
 	int age;
 	rpgClass charClass;
 	
@@ -32,14 +32,15 @@ class Character
 	Inventory& getInventory() {return inventory;)
 	
 	// constructor
-	Character(Inventory inventoryIn, int levelIn, std:string nameIn, int ageIn) : 
-		inventory(inventoryIn, level(levelIn), name(nameIn), age(ageIn) {}
+	Character(Inventory inventoryIn, int levelIn, std:string nameIn, int ageIn, Gender genderIn) : 
+		inventory(inventoryIn, level(levelIn), name(nameIn), age(ageIn), gender(genderIn) {}
 	
 	// some standard getters
 	int getLevel() const {return level;}
 	std::string getName() const {return name;}
 	int getAge() const {return age;}
 	rpgClass getClass() const {return charClass;}
+	Gender getGender const {return gender;}
 };
 
 #endif
