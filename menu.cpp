@@ -21,6 +21,7 @@ Menu::Menu(std::string titleIn, std::string optionsIn, std::vector<std::string> 
 }
 
 // prints menu then retrieves option from user
+// refactor this bad boy later to be consistent with update() hierarchy
 void Menu::update()
 {
     do
