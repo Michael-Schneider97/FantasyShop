@@ -13,7 +13,7 @@
  
  enum class gender {male, female, n/a};
  
- // probably gonna redesign this bit
- enum class relationship {nemesis, enemy, none, friends, family, siblings, lovers};
+ // probably gonna redesign this bit later
+ enum class relationship {nemesis, enemy, none, friends, rivals, family, siblings, lovers};
 
  #endif

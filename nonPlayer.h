@@ -3,6 +3,7 @@
 
 #include "character.h"
 #include "party.h"
+#include "inventory.h"
 
 class Party;
 
@@ -16,6 +17,11 @@ class NonPlayer : public Character
 	// TODO
 	bool joinParty(Party *party);
 	bool leaveParty();
+	void selectEquipment();
+	Inventory& getEquippedItems() {return equippedItems;}
+	
+	// equipped items
+	Inventory &equippedItems;
 	
 	// data section for actions
 	int timerSinceOrder;

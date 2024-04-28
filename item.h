@@ -4,6 +4,9 @@
 #include <iostream>
 #include "rpgClass.h"
 
+enum class itemType {weapon, potion, scroll, boot, armor, glove, helmet, ring, junk};
+float valueMultiplier[8] = {9, 2, 2, 7, 7, 7, 7, 4, 0};
+
 class Item
 {
     public:
@@ -16,6 +19,7 @@ class Item
     int getMaxStack() const {return stackSize;}
     int getID() const {return itemID;}
     std::string getName() const {return name;}
+    int getValue() {};
     // defualt constructor makes a null Item
     Item() : name(""), description(""), level(NULL_LEVEL), itemID(NULL_ITEMID), stackSize(0) {}
 
