@@ -11,7 +11,7 @@
  // I really dont like the variable name here but cant think of anything better. 
  enum class rpgClass {MagicCaster, Knight, Summoner, Swordsman, Shopkeep};
  
- enum class gender {male, female, n/a};
+ enum class gender {male, female, neither};
  
  // probably gonna redesign this bit later
  enum class relationship {nemesis, enemy, none, friends, rivals, family, siblings, lovers};

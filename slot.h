@@ -25,7 +25,7 @@ class Slot
     Slot(Item itemIn, int numIn) : item(new Item(itemIn)), currentStackSize(numIn), maxQuantity(itemIn.getMaxStack()) { assert(currentStackSize >= minQuantity); }
     
     // remove item
-    ￼bool remove(const Item itemIn, const int quantity = 1)
+    bool remove(const Item itemIn, const int quantity = 1)
     {
         if(!item)
         {
@@ -40,6 +40,7 @@ class Slot
             currentStackSize = NULL_STACK_SIZE;
             return true;
         }
+        return false;
     }
 
     // add item

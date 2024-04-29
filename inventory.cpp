@@ -30,14 +30,14 @@ void Inventory::display()
     
     for(int i = 0; i < inventory.size(); i++)
     {
-        inventory[i].shortPrint();
+        inventory[i].item->print();
     }
 
     std::cout << std::endl;
 }
 
 // constructor
-Inventory::Inventory(std::string nameIn, const int size)
+Inventory::Inventory(std::string nameIn, const int sizeIn)
 : name(nameIn), size(sizeIn) {}
 
 // get the nth slot with the matching item
@@ -90,7 +90,7 @@ int Inventory::getCount(const Item itemIn)
 // returns the first element to contain the item in a slot with space for more
 // THE QUANTITY ARGUMENT WILL BE MODIFIED IF THE CONTAINER HAS
 // FEWER/MORE THAN THE SPECIFIED AMOUNT
-int getLocationOf(const Item itemIn, int *quantity = NULL)
+int Inventory::getLocationOf(const Item itemIn, int *quantity = NULL)
 {
 
 	//todo: add checking for if we have x amount of this item in the slot
@@ -109,7 +109,7 @@ int getLocationOf(const Item itemIn, int *quantity = NULL)
 		if(itemIn.getID() ==inventory[i].item->getID())
 		{
 			listOfPositions.push_back(i);
-			listOfQuantities.push_back(inventory[i].item->getID();
+			listOfQuantities.push_back(inventory[i].item->getID());
 		}
 	}
 	
@@ -126,7 +126,7 @@ int getLocationOf(const Item itemIn, int *quantity = NULL)
 }
 
 // returns the current open slots
-int Inventory::getFreeSlots() const
+int Inventory::getFreeSlots() 
 {
 	update();
 	return inventory.size() - size;
@@ -158,7 +158,7 @@ bool Inventory::addItem(const Item itemIn, const int quantity = 1)
 	spaces += (getFreeSlots() * itemIn.getMaxStack());
 	
 	// now add all the space in slots which are not full
-	const int totalSlots = getSlotsWith(itemIn);
+	const int totalSlots = getIndex(itemIn);
 	for(int i = 0; i < totalSlots; i++)
 	{
 		spaces += (inventory[getIndex(itemIn, i+1)].getMaxStack() - inventory[getIndex(itemIn, i+1)].getQuantity());
@@ -177,7 +177,7 @@ bool Inventory::addItem(const Item itemIn, const int quantity = 1)
 	for(int i = 0; i < totalSlots; i++)
 	{
 		// code smell
-		int spaceThisSlot = (inventory[getIndex(itemIn, i+1)].getMaxStack() - inventory[getIndex(itemIn, i+1)].getQuantity());
+		int spaceThisSlot = (inventory[getIndex(itemIn, i+1)].item->getMaxStack() - inventory[getIndex(itemIn, i+1)].getQuantity());
 		
 		if(spaceThisSlot == 0)
 		{
@@ -186,7 +186,7 @@ bool Inventory::addItem(const Item itemIn, const int quantity = 1)
 		
 		else if(spaceThisSlot < quantityToAdd)
 		{
-			if(inventory[getIndex(itemIn, i+1)].addItem(itemIn, spaceThisSlot))
+			if(inventory[getIndex(itemIn, i+1)].add(itemIn, spaceThisSlot))
 			{
 				quantityToAdd-=spaceThisSlot;
 				continue;
@@ -194,7 +194,7 @@ bool Inventory::addItem(const Item itemIn, const int quantity = 1)
 		}
 		else
 		{
-			if(inventory[getIndex(itemIn, i+1)].addItem(itemIn, quantityToAdd))
+			if(inventory[getIndex(itemIn, i+1)].add(itemIn, quantityToAdd))
 			{
 				return true;
 			}
@@ -234,12 +234,12 @@ bool Inventory::removeItem(const Item itemIn, const int quantity = 1)
 			// on the container this will introduce a logic bug
 			// and well need to pull our second variable in this
 			// call from the inventory itself, not itemIn
-			inventory[currentIndex].removeItem(itemIn, itemIn.getMaxStack());
+			inventory[currentIndex].remove(itemIn, itemIn.getMaxStack());
 			quantityToDelete-=itemIn.getMaxStack();
 		}
 		else
 		{
-			inventory[currentIndex.removeItem(itemIn, quantityToDelete);
+			inventory[currentIndex].remove(itemIn, quantityToDelete);
 		}
 	}
 	
@@ -248,17 +248,17 @@ bool Inventory::removeItem(const Item itemIn, const int quantity = 1)
 
 // attempt to pass item from inventory a to b
 // possibly will refactor this to return bool
-void Inventory::passItem(Inventory destination, const Item itemToPass, Const int quantity = 1)
+void Inventory::passItem(Inventory destination, const Item itemToPass, const int quantity = 1)
 {
     if(!removeItem(itemToPass, quantity))
     {
 	    return;
     }
     
-    if(!destination.addItem(item, quantity))
+    if(!destination.addItem(itemToPass, quantity))
     {
 	    // undo removal
-	    addItem(item, quantity);
+	    addItem(itemToPass, quantity);
 	    return;
     }
 
@@ -266,7 +266,7 @@ void Inventory::passItem(Inventory destination, const Item itemToPass, Const int
 	return;
 }
 
-int Inventory::size()
+int Inventory::getUsedSlots()
 {
 	update();
 	return inventory.size();

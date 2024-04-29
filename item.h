@@ -5,7 +5,7 @@
 #include "rpgClass.h"
 
 enum class itemType {weapon, potion, scroll, boot, armor, glove, helmet, ring, junk};
-float valueMultiplier[8] = {9, 2, 2, 7, 7, 7, 7, 4, 0};
+float valueMultiplier[9] = {9, 2, 2, 7, 7, 7, 7, 4, 0};
 const int equippableTypes = 7;
 
 class Item
@@ -22,7 +22,7 @@ class Item
     int getMaxStack() const {return stackSize;}
     int getID() const {return itemID;}
     std::string getName() const {return name;}
-    int getValue() {};
+    int getValue() {return level * valueMultiplier[static_cast<int>(thisItemType)];}    // perhaps we redesign this later
     itemType getType() const {return thisItemType;}
     
     // defualt constructor makes a null Item
