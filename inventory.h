@@ -25,6 +25,7 @@ public:
     bool passItem
     bool addItem(Item item);
     Item removeItem();
+    int size();
     
 };
 

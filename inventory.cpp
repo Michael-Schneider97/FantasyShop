@@ -265,3 +265,9 @@ void Inventory::passItem(Inventory destination, const Item itemToPass, Const int
 	// successful passage of item
 	return;
 }
+
+int Inventory::size()
+{
+	update();
+	return inventory.size();
+}
